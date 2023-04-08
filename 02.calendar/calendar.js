@@ -2,7 +2,7 @@ function print_calendar(year, month) {
   let first_date = new Date(year, month, 1);
   let last_date = new Date(year, month + 1, 0);
   let days = ["日", "月", "火", "水", "木", "金", "土"];
-  console.log("     " + month + "月 " + year + "年");
+  console.log("     " + (month + 1) + "月 " + year + "年");
   console.log(days.join(" "));
 
   let print_day = first_date.getDay();
@@ -28,8 +28,9 @@ function to_print_date(date) {
   }
 }
 
+let argv = require("minimist")(process.argv.slice(2));
 let today = new Date();
-let year = today.getFullYear();
-let month = today.getMonth();
+let year = argv.y ? argv.y : today.getFullYear();
+let month = argv.m ? argv.m - 1 : today.getMonth();
 
 print_calendar(year, month);
