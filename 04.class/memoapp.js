@@ -1,20 +1,68 @@
 const fs = require("fs");
-process.stdin.resume();
-process.stdin.setEncoding("utf8");
+const MEMO_FILE = "memo.json";
 
-process.stdin.on("data", function (buffer) {
-  let str = buffer.toString().slice(0, -1);
-  if (str != "") {
-    let json_string = `{"content":"${str}"}`;
-    write_memo(json_string);
-  } else {
-    console.log("何も入力されていません！処理を終了します。");
+// オプション取得
+let argv = require("minimist")(process.argv.slice(2));
+
+create_memo_file();
+
+let data = fs.readFileSync("memo.json", "utf8");
+let memos = JSON.parse(data);
+
+// lオプション
+if (argv.l) {
+  for (const memo of memos) {
+    console.log(memo.content.split("\n")[0]);
   }
-});
+} else {
+  process.stdin.resume();
+  process.stdin.setEncoding("utf8");
 
-function write_memo(json_string) {
-  fs.writeFile("memo.json", json_string, function (err) {
+  process.stdin.on("data", function (buffer) {
+    let str = convert_new_line(buffer.toString().slice(0, -1));
+    if (str != "") {
+      let json_string = `{"id":"${create_id()}","content":"${str}"}`;
+      append_memo(json_string);
+    } else {
+      console.log("何も入力されていません！処理を終了します。");
+    }
+  });
+}
+
+function append_memo(json_string) {
+  let data = fs.readFileSync("memo.json", "utf8");
+  let json_data = JSON.parse(data);
+  json_data.push(JSON.parse(json_string));
+  let new_data = JSON.stringify(json_data);
+
+  fs.writeFile(MEMO_FILE, new_data, function (err) {
     if (err) throw err;
     console.log("メモが保存されました");
   });
+}
+
+function convert_new_line(str) {
+  return str
+    .replace(/(\r\n)/g, "\n")
+    .replace(/(\r)/g, "\n")
+    .replace(/(\n)/g, "\\n");
+}
+
+function create_id() {
+  let memos = JSON.parse(data);
+  let memo_length = memos.length;
+  if (memo_length == 0) {
+    return 1;
+  } else {
+    let max_id = memos[memos.length - 1].id;
+    return parseInt(max_id) + 1;
+  }
+}
+
+function create_memo_file() {
+  if (!fs.existsSync(MEMO_FILE)) {
+    fs.writeFileSync(MEMO_FILE, "[]", function (err) {
+      if (err) throw err;
+    });
+  }
 }
