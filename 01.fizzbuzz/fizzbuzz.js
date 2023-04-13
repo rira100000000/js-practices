@@ -1,4 +1,4 @@
-for (let count = 1; count < 20; count++) {
+for (let count = 1; count <= 20; count++) {
   if (count % 15 == 0) {
     console.log("FizzBuzz");
   } else if (count % 5 == 0) {
