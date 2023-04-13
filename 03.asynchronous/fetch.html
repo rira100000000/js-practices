@@ -4,9 +4,9 @@
     Fjord Boot Camp
     <script>
       async function showFjord() {
-        let result = await fetch("https://bootcamp.fjord.jp/");
-        let promise_result = await result.text();
-        console.log(promise_result);
+        const fetchedHtml = await fetch("https://bootcamp.fjord.jp/");
+        const fetchedText = await fetchedHtml.text();
+        console.log(fetchedText);
       }
       showFjord();
     </script>
