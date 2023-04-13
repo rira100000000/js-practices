@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    Fjord Boot Camp
+    <script>
+      async function showFjord() {
+        const response = await fetch("https://bootcamp.fjord.jp/");
+        const text = await response.text();
+        console.log(text);
+      }
+      showFjord();
+    </script>
+  </body>
+</html>
