@@ -3,18 +3,21 @@ const memoFileClass = require("./memoFile");
 const menuClass = require("./menu");
 const argv = require("minimist")(process.argv.slice(2));
 
-let memo = new memoClass();
-let memoFile = new memoFileClass();
-memoFile.createMemoFile();
-memoFile.setMemoData();
+const memo = new memoClass();
+const memoFile = new memoFileClass();
+const menu = new menuClass(memoFile.memoData);
 
 if (argv.l) {
   for (const memo of memoFile.memoData) {
     console.log(memo.content.split("\n")[0]);
   }
 } else if (argv.r) {
-  const menu = new menuClass(memoFile.memoData);
   menu.display();
+} else if (argv.d) {
+  (async () => {
+    const id = await menu.delete();
+    memoFile.deleteMemo(id);
+  })();
 } else {
   process.stdin.resume();
   process.stdin.setEncoding("utf8");

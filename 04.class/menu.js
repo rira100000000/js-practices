@@ -7,7 +7,7 @@ class Menu {
     let menu = [];
     for (const memo of memoData) {
       menu.push({
-        value: "\n" + memo.content,
+        value: memo,
         message: memo.content.split("\n")[0],
       });
     }
@@ -23,14 +23,41 @@ class Menu {
         message: "参照するメモを選択してください",
         choices: this.list,
         initial: 0,
+        format() {
+          return ""; // 選択した内容を空文字にする
+        },
         footer() {
-          return this.focused.value;
+          return this.focused.value.content;
         },
       },
     ];
 
     (async () => {
-      await prompt(questions);
+      const answer = await prompt(questions);
+      console.log(answer.memo.content);
+    })();
+  }
+  async delete() {
+    const { prompt } = require("enquirer");
+    const questions = [
+      {
+        type: "select",
+        name: "memo",
+        message: "削除するメモを選択してください",
+        choices: this.list,
+        initial: 0,
+        format() {
+          return "";
+        },
+        footer() {
+          return this.focused.value.content;
+        },
+      },
+    ];
+
+    return await (async () => {
+      const answer = await prompt(questions);
+      return answer.memo.id;
     })();
   }
 }
