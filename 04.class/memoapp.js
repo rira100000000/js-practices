@@ -14,6 +14,33 @@ if (argv.l) {
   for (const memo of memos) {
     console.log(memo.content.split("\n")[0]);
   }
+} else if (argv.r) {
+  let menu = [];
+  for (const memo of memos) {
+    menu.push({
+      value: "\n" + memo.content,
+      message: memo.content.split("\n")[0],
+    });
+  }
+
+  const { prompt } = require("enquirer");
+  const questions = [
+    {
+      type: "select",
+      name: "memo",
+      message: "参照するメモを選択してください",
+      choices: menu,
+      initial: 0,
+      footer() {
+        return "\n" + this.focused.value;
+      },
+      // focusedプロパティで選択された項目を表示する
+    },
+  ];
+
+  (async () => {
+    await prompt(questions);
+  })();
 } else {
   process.stdin.resume();
   process.stdin.setEncoding("utf8");
