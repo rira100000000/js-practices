@@ -1,7 +1,6 @@
 const fs = require("fs");
 const MEMO_FILE = "memo.json";
 
-// オプション取得
 let argv = require("minimist")(process.argv.slice(2));
 
 create_memo_file();
@@ -9,7 +8,6 @@ create_memo_file();
 let data = fs.readFileSync("memo.json", "utf8");
 let memos = JSON.parse(data);
 
-// lオプション
 if (argv.l) {
   for (const memo of memos) {
     console.log(memo.content.split("\n")[0]);
@@ -34,7 +32,6 @@ if (argv.l) {
       footer() {
         return "\n" + this.focused.value;
       },
-      // focusedプロパティで選択された項目を表示する
     },
   ];
 
