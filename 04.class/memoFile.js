@@ -38,6 +38,7 @@ class MemoFile {
       console.log("メモが保存されました");
     });
   }
+
   deleteMemo(id) {
     let newData = [];
     for (const memo of this.memoData) {

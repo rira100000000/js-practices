@@ -37,6 +37,7 @@ class Menu {
       console.log(answer.memo.content);
     })();
   }
+
   async delete() {
     const { prompt } = require("enquirer");
     const questions = [
