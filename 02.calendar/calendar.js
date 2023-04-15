@@ -1,6 +1,7 @@
 const argv = require("minimist")(process.argv.slice(2));
 function print_calendar() {
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const month = argv.m ? argv.m - 1 : today.getMonth();
   const year = argv.y ? argv.y : today.getFullYear();
 
@@ -23,11 +24,7 @@ function print_calendar() {
 
 function print_date(year, month, date, today) {
   const printing_date = date < 10 ? " " + date.toString() : date.toString();
-  if (
-    today.getFullYear() === year &&
-    today.getMonth() === month &&
-    today.getDate() === date
-  ) {
+  if (today.getTime() === new Date(year, month, date).getTime()) {
     process.stdout.write("\u001b[31m" + printing_date + "\u001b[0m");
   } else {
     process.stdout.write(printing_date);
