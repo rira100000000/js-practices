@@ -1,15 +1,15 @@
 const argv = require("minimist")(process.argv.slice(2));
 function print_calendar() {
-  let today = new Date();
-  let month = argv.m ? argv.m - 1 : today.getMonth();
-  let year = argv.y ? argv.y : today.getFullYear();
+  const today = new Date();
+  const month = argv.m ? argv.m - 1 : today.getMonth();
+  const year = argv.y ? argv.y : today.getFullYear();
 
-  let days = ["日", "月", "火", "水", "木", "金", "土"];
+  const days = ["日", "月", "火", "水", "木", "金", "土"];
   console.log("     " + (month + 1) + "月 " + year + "年");
   console.log(days.join(" "));
 
-  let first_date = new Date(year, month, 1);
-  let last_date = new Date(year, month + 1, 0);
+  const first_date = new Date(year, month, 1);
+  const last_date = new Date(year, month + 1, 0);
   let print_day = first_date.getDay();
 
   process.stdout.write("   ".repeat(print_day));
@@ -22,7 +22,7 @@ function print_calendar() {
 }
 
 function print_date(year, month, date, today) {
-  let printing_date = date < 10 ? " " + date.toString() : date.toString();
+  const printing_date = date < 10 ? " " + date.toString() : date.toString();
   if (
     today.getFullYear() == year &&
     today.getMonth() == month &&
