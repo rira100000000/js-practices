@@ -1,5 +1,5 @@
+const argv = require("minimist")(process.argv.slice(2));
 function print_calendar() {
-  let argv = require("minimist")(process.argv.slice(2));
   let today = new Date();
   let month = argv.m ? argv.m - 1 : today.getMonth();
   let year = argv.y ? argv.y : today.getFullYear();
