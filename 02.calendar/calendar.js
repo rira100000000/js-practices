@@ -1,4 +1,7 @@
 const argv = require("minimist")(process.argv.slice(2));
+const Saturday = 6;
+const Sunday = 0;
+
 function print_calendar() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -17,7 +20,8 @@ function print_calendar() {
 
   for (let date = 1; date <= last_date.getDate(); date++) {
     print_date(year, month, date, today);
-    print_day = print_space_and_new_line(print_day);
+    printSpaceOrNewLine(print_day);
+    print_day = nextDay(print_day);
   }
   process.stdout.write("\n"); //zshがつける不要な%を消す
 }
@@ -31,14 +35,19 @@ function print_date(year, month, date, today) {
   }
 }
 
-function print_space_and_new_line(print_day) {
-  if (print_day === 6) {
+function printSpaceOrNewLine(print_day) {
+  if (print_day === Saturday) {
     process.stdout.write("\n");
-    return 0;
   } else {
     process.stdout.write(" ");
-    return print_day + 1;
   }
 }
 
+function nextDay(print_day) {
+  if (print_day === Saturday) {
+    return Sunday;
+  } else {
+    return print_day + 1;
+  }
+}
 print_calendar();
