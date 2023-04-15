@@ -24,9 +24,9 @@ function print_calendar() {
 function print_date(year, month, date, today) {
   const printing_date = date < 10 ? " " + date.toString() : date.toString();
   if (
-    today.getFullYear() == year &&
-    today.getMonth() == month &&
-    today.getDate() == date
+    today.getFullYear() === year &&
+    today.getMonth() === month &&
+    today.getDate() === date
   ) {
     process.stdout.write("\u001b[31m" + printing_date + "\u001b[0m");
   } else {
@@ -35,7 +35,7 @@ function print_date(year, month, date, today) {
 }
 
 function print_space_and_new_line(print_day) {
-  if (print_day == 6) {
+  if (print_day === 6) {
     process.stdout.write("\n");
     return 0;
   } else {
