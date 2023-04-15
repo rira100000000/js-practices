@@ -2,7 +2,7 @@ const argv = require("minimist")(process.argv.slice(2));
 const Saturday = 6;
 const Sunday = 0;
 
-function print_calendar() {
+function printCalendar() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const month = argv.m ? argv.m - 1 : today.getMonth();
@@ -12,21 +12,21 @@ function print_calendar() {
   console.log("     " + (month + 1) + "月 " + year + "年");
   console.log(days.join(" "));
 
-  const first_date = new Date(year, month, 1);
-  const last_date = new Date(year, month + 1, 0);
-  let print_day = first_date.getDay();
+  const firstDate = new Date(year, month, 1);
+  const lastDate = new Date(year, month + 1, 0);
+  let printDay = firstDate.getDay();
 
-  process.stdout.write("   ".repeat(print_day));
+  process.stdout.write("   ".repeat(printDay));
 
-  for (let date = 1; date <= last_date.getDate(); date++) {
-    print_date(year, month, date, today);
-    printSpaceOrNewLine(print_day);
-    print_day = nextDay(print_day);
+  for (let date = 1; date <= lastDate.getDate(); date++) {
+    printDate(year, month, date, today);
+    printSpaceOrNewLine(printDay);
+    printDay = nextDay(printDay);
   }
   process.stdout.write("\n"); //zshがつける不要な%を消す
 }
 
-function print_date(year, month, date, today) {
+function printDate(year, month, date, today) {
   const printing_date = date < 10 ? " " + date.toString() : date.toString();
   if (today.getTime() === new Date(year, month, date).getTime()) {
     process.stdout.write("\u001b[31m" + printing_date + "\u001b[0m");
@@ -50,4 +50,4 @@ function nextDay(print_day) {
     return print_day + 1;
   }
 }
-print_calendar();
+printCalendar();
