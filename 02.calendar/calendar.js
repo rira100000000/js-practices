@@ -27,7 +27,7 @@ function printCalendar() {
 }
 
 function printDate(year, month, date, today) {
-  const printing_date = date < 10 ? " " + date.toString() : date.toString();
+  const printing_date = date.toString().padStart(2, " ");
   if (today.getTime() === new Date(year, month, date).getTime()) {
     process.stdout.write("\u001b[31m" + printing_date + "\u001b[0m");
   } else {
