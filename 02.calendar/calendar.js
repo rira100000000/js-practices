@@ -1,6 +1,6 @@
 const argv = require("minimist")(process.argv.slice(2));
-const Saturday = 6;
-const Sunday = 0;
+const SATURDAY = 6;
+const SUNDAY = 0;
 
 function printCalendar() {
   const today = new Date();
@@ -8,9 +8,9 @@ function printCalendar() {
   const month = argv.m ? argv.m - 1 : today.getMonth();
   const year = argv.y ? argv.y : today.getFullYear();
 
-  const days = ["日", "月", "火", "水", "木", "金", "土"];
+  const DAYS = ["日", "月", "火", "水", "木", "金", "土"];
   console.log("     " + (month + 1) + "月 " + year + "年");
-  console.log(days.join(" "));
+  console.log(DAYS.join(" "));
 
   const firstDate = new Date(year, month, 1);
   const lastDate = new Date(year, month + 1, 0);
@@ -36,7 +36,7 @@ function printDate(year, month, date, today) {
 }
 
 function printSpaceOrNewLine(print_day) {
-  if (print_day === Saturday) {
+  if (print_day === SATURDAY) {
     process.stdout.write("\n");
   } else {
     process.stdout.write(" ");
@@ -44,8 +44,8 @@ function printSpaceOrNewLine(print_day) {
 }
 
 function nextDay(print_day) {
-  if (print_day === Saturday) {
-    return Sunday;
+  if (print_day === SATURDAY) {
+    return SUNDAY;
   } else {
     return print_day + 1;
   }
