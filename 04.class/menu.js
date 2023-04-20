@@ -1,3 +1,5 @@
+const { prompt } = require("enquirer");
+
 class Menu {
   constructor(memoData) {
     this.list = this.createMenu(memoData);
@@ -15,7 +17,6 @@ class Menu {
   }
 
   display() {
-    const { prompt } = require("enquirer");
     const questions = [
       {
         type: "select",
