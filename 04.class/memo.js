@@ -12,7 +12,7 @@ class Memo {
   }
 
   convertJsonString(id, input) {
-    return `{"id":"${id}","content":"${input}"}`;
+    return JSON.stringify({ id: id, content: input });
   }
 }
 
