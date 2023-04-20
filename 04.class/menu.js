@@ -56,11 +56,8 @@ class Menu {
       },
     ];
 
-    return await (async () => {
-      const answer = await prompt(questions);
-      return answer.memo.id;
-    })();
+    const answer = await prompt(questions);
+    return answer.memo.id;
   }
 }
-
 module.exports = Menu;
