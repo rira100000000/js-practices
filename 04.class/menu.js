@@ -16,7 +16,7 @@ class Menu {
     return menu;
   }
 
-  display() {
+  async display() {
     const questions = [
       {
         type: "select",
@@ -33,10 +33,8 @@ class Menu {
       },
     ];
 
-    (async () => {
-      const answer = await prompt(questions);
-      console.log(answer.memo.content);
-    })();
+    const answer = await prompt(questions);
+    console.log(answer.memo.content);
   }
 
   async delete() {
