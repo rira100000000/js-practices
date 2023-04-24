@@ -5,10 +5,7 @@ class Memo {
   }
 
   convertNewLine(str) {
-    return str
-      .replace(/(\r\n)/g, "\n")
-      .replace(/(\r)/g, "\n")
-      .replace(/(\n)/g, "\\n");
+    return str.replace(/(\r\n)/g, "\n").replace(/(\r)/g, "\n");
   }
 
   convertJsonString(id, input) {
